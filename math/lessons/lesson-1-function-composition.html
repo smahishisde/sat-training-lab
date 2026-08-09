@@ -50,7 +50,15 @@ code,.math{font-family:Consolas,monospace;background:#f3f5f8;padding:2px 5px;bor
 <p><b>Before this lesson, did you know this method?</b></p><div class="row"><label class="chip"><input type="radio" name="knew" value="Yes"> Yes</label><label class="chip"><input type="radio" name="knew" value="Sort of"> Sort of</label><label class="chip"><input type="radio" name="knew" value="No"> No</label></div>
 <p><b>Do you understand the pattern now?</b></p><div class="row"><label class="chip"><input type="radio" name="under" value="Yes"> Yes</label><label class="chip"><input type="radio" name="under" value="Still unsure"> Still unsure</label></div>
 <p><b>Was the explanation clear?</b></p><div class="row"><label class="chip"><input type="radio" name="clear" value="Yes"> Yes</label><label class="chip"><input type="radio" name="clear" value="Somewhat"> Somewhat</label><label class="chip"><input type="radio" name="clear" value="No"> No</label></div>
-<p><b>What was confusing?</b></p><textarea id="confusing"></textarea><p><b>What rule do you want to remember?</b></p><textarea id="remember"></textarea><br><br><button onclick="finish()">Save lesson result</button><div id="saved" class="feedback"></div></div>
+<p><b>What was confusing?</b></p><textarea id="confusing"></textarea><p><b>What rule do you want to remember?</b></p><textarea id="remember"></textarea><br><br><button onclick="finish()">Save lesson result</button>
+<div id="saved" class="feedback"></div>
+<hr style="margin:22px 0;border:0;border-top:1px solid #d9e1ef">
+<h3>Export this lesson result</h3>
+<p class="muted">These buttons read the saved result from this browser, so they still work after a refresh or reopen.</p>
+<button onclick="copyLessonResult()">Copy Results for ChatGPT</button>
+<button class="secondary" onclick="downloadLessonResult()">Download Results</button>
+<br><br><textarea id="resultExport" readonly placeholder="Saved lesson results will appear here."></textarea>
+</div>
 <script>
 const KEY=["3", "-3", "13", "-4", "5"], NAME="Targeted Lesson 1 \u2014 Function Composition & Hidden Parameters", GUIDED="2", started=Date.now();let attempts=Array(5).fill(0),correct=Array(5).fill(false),guidedAttempts=0,guidedCorrect=false,hintUsed=false;
 function n(s){return s.toLowerCase().replace(/\s+/g,'').replace(/√/g,'sqrt')}
@@ -59,4 +67,28 @@ function guided(){guidedAttempts++;let ok=n(document.getElementById('guided').va
 function check(i){attempts[i-1]++;let ok=n(document.getElementById('a'+i).value)===KEY[i-1];correct[i-1]=ok;let f=document.getElementById('f'+i);f.textContent=ok?'Correct — you recognized the structure.':'Not yet. Name the pattern first, then choose the method.';f.className='feedback '+(ok?'ok':'no')}
 function val(nm){let e=document.querySelector('input[name='+nm+']:checked');return e?e.value:null}
 function finish(){let fb={help:val('help'),knew:val('knew'),understand:val('under'),clear:val('clear')};if(Object.values(fb).some(x=>!x)){alert('Please answer all four feedback questions.');return}let r={lesson:NAME,elapsedSeconds:Math.round((Date.now()-started)/1000),guidedAttempts,guidedCorrect,hintUsed,questions:attempts.map((a,i)=>({q:i+1,attempts:a,finalCorrect:correct[i]})),feedback:fb,confusing:document.getElementById('confusing').value,remember:document.getElementById('remember').value,savedAt:new Date().toISOString()};localStorage.setItem('satMathLessonDeepV2:'+NAME,JSON.stringify(r));document.getElementById('saved').textContent='Saved on this browser.';document.getElementById('saved').className='feedback ok'}
+
+function formatSeconds(s){let m=Math.floor((s||0)/60),r=(s||0)%60;return m+':'+String(r).padStart(2,'0')}
+function buildLessonResult(){
+  let raw=localStorage.getItem('satMathLessonDeepV2:'+NAME);
+  if(!raw) return 'No saved result found for this lesson in this browser.';
+  let r=JSON.parse(raw), lines=[NAME+' Results',
+    'Saved: '+(r.savedAt||'[unknown]'),
+    'Elapsed: '+formatSeconds(r.elapsedSeconds),
+    'Guided attempts: '+(r.guidedAttempts??0),
+    'Guided correct: '+(r.guidedCorrect?'Yes':'No'),
+    'Hint used: '+(r.hintUsed?'Yes':'No'),''];
+  (r.questions||[]).forEach(q=>lines.push('Transfer Q'+q.q+': attempts='+q.attempts+' | finalCorrect='+(q.finalCorrect?'yes':'no')));
+  lines.push('','Lesson helped: '+(r.feedback?.help||'[not recorded]'),
+    'Knew method before: '+(r.feedback?.knew||'[not recorded]'),
+    'Understands now: '+(r.feedback?.understand||'[not recorded]'),
+    'Explanation clear: '+(r.feedback?.clear||'[not recorded]'),
+    'What was confusing: '+(r.confusing||'[none]'),
+    'Rule to remember: '+(r.remember||'[none]'));
+  return lines.join('\n');
+}
+async function copyLessonResult(){let t=buildLessonResult();document.getElementById('resultExport').value=t;try{await navigator.clipboard.writeText(t)}catch(e){}}
+function downloadLessonResult(){let t=buildLessonResult();document.getElementById('resultExport').value=t;let b=new Blob([t],{type:'text/plain'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=NAME.replace(/[^a-z0-9]+/gi,'_')+'_Results.txt';a.click();URL.revokeObjectURL(a.href)}
+window.addEventListener('load',()=>{if(localStorage.getItem('satMathLessonDeepV2:'+NAME))document.getElementById('resultExport').value=buildLessonResult();});
+
 </script></main></body></html>
