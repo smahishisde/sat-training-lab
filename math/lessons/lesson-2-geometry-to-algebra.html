@@ -1,1 +1,52 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Targeted Lesson 2 — SAT Training Lab</title><style>body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#14213d;line-height:1.5}.wrap{max-width:900px;margin:auto;padding:28px 20px 60px}a{color:#2457d6}.brand{font-weight:800;letter-spacing:.08em;font-size:.8rem;color:#2457d6}.top{display:flex;justify-content:space-between}.card{background:#fff;border:1px solid #d9e1ef;border-radius:16px;padding:22px;margin:16px 0}.rule{font-size:1.2rem;font-weight:800;padding:16px;border-left:5px solid #2457d6;background:#eef4ff}.btn,button{display:inline-block;background:#2457d6;color:#fff;border:0;border-radius:9px;padding:10px 15px;font-weight:700;text-decoration:none;cursor:pointer}input{padding:9px;margin:8px;border:1px solid #aaa;border-radius:7px}.q{padding:16px 0;border-top:1px solid #ddd}.ok{color:#176b3a;font-weight:bold}.no{color:#a32929;font-weight:bold}.note{background:#fff8e8;border:1px solid #efd38c;padding:14px;border-radius:10px}.hidden{display:none}.sub{color:#5f6b85}</style></head><body><main class="wrap"><div class="top"><div class="brand">SAT TRAINING LAB · MATH</div><a href="index.html">← Lessons</a></div><p>Targeted Lesson 2</p><h1>Turning Geometry Into Algebra</h1><div class="card"><div class="rule">WHEN geometry fixes coordinates or lengths in terms of one variable → translate the picture into an equation before calculating.</div><p><b>Recognition cue:</b> A circle tangent to both positive coordinate axes with radius r has center (r,r).</p></div><div class="card"><h2>Worked pattern</h2><p>If (a,b) is on that circle, use (a-r)²+(b-r)²=r². The geometry is now one algebra equation in r.</p></div><div class="card"><h3>Algebra or Desmos?</h3><p>Algebra is often cleaner when the question asks for a sum or product of possible radii; Vieta can avoid solving both roots.</p><h3>Common trap</h3><p>Using distance from the point to the origin instead of to the center.</p></div><div class="card"><h2>Transfer practice</h2><div class="q"><b>1.</b> A circle tangent to both positive axes passes through (6,8). The possible radii have sum S. Find S.<br><input id="a1"><button onclick="check(1)">Check</button><div id="f1"></div></div><div class="q"><b>2.</b> A circle tangent to both positive axes passes through (4,7). The possible radii have product P. Find P.<br><input id="a2"><button onclick="check(2)">Check</button><div id="f2"></div></div><div class="q"><b>3.</b> A circle tangent to both positive axes passes through (5,5). Enter the smaller radius as 10-5sqrt(2).<br><input id="a3"><button onclick="check(3)">Check</button><div id="f3"></div></div><div id="done" class="note hidden"><b>Transfer complete.</b> Record anything that still felt unfamiliar.</div></div><script>const key=["28", "65", "10-5sqrt(2)"];let pass=new Set();function n(s){return s.toLowerCase().replace(/\s+/g,'').replace(/√/g,'sqrt')}function check(i){let f=document.getElementById('f'+i);if(n(document.getElementById('a'+i).value)==key[i-1]){f.textContent='Correct — pattern recognized.';f.className='ok';pass.add(i)}else{f.textContent='Not yet. Re-read the recognition cue and try again.';f.className='no';pass.delete(i)}if(pass.size==key.length)document.getElementById('done').classList.remove('hidden')}</script></main></body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Targeted Lesson 2 — SAT Training Lab</title><style>
+:root{--ink:#14213d;--blue:#2457d6;--bg:#f4f7fb;--card:#fff;--muted:#5f6b85;--line:#d9e1ef;--good:#176b3a;--bad:#a32929;--warn:#8a5700}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:960px;margin:auto;padding:28px 20px 60px}.top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px}
+a{color:var(--blue)}.brand{font-weight:800;letter-spacing:.08em;font-size:.8rem;color:var(--blue)}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08}.sub,.muted{color:var(--muted)}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0;box-shadow:0 8px 24px rgba(20,33,61,.05)}
+.rule{font-size:1.18rem;font-weight:800;padding:16px;border-left:5px solid var(--blue);background:#eef4ff;border-radius:10px}
+.btn,button{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:9px;padding:10px 15px;font-weight:800;text-decoration:none;cursor:pointer}
+.btn.secondary,button.secondary{background:#fff;color:var(--blue);border:1px solid var(--blue)}
+input[type=text]{padding:10px;border:1px solid #aeb9cc;border-radius:8px;font-size:1rem;max-width:260px}
+.q{padding:18px 0;border-top:1px solid var(--line)}.q:first-child{border-top:0}.feedback{margin-top:8px;font-weight:700}.ok{color:var(--good)}.no{color:var(--bad)}
+.note{background:#fff8e8;border:1px solid #efd38c;padding:14px;border-radius:10px}.hidden{display:none}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.chip{padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:#fff}
+textarea{width:100%;min-height:180px;padding:12px;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}
+</style></head><body><main class="wrap">
+<div class="top"><div class="brand">SAT TRAINING LAB · MATH</div><a href="index.html">← Lessons</a></div>
+<p class="muted">Targeted Lesson 2</p><h1>Turning Geometry Into Algebra</h1>
+<div class="card"><div class="rule">WHEN geometry fixes coordinates or lengths in terms of one variable → translate the picture into an equation before calculating.</div><p><b>Recognition cue:</b> A circle tangent to both positive coordinate axes with radius r has center (r,r).</p>
+<button class="secondary" onclick="reviewWorked()">I needed to revisit the worked example</button></div>
+<div class="card"><h2>Worked pattern</h2><p>If (a,b) lies on that circle, use (a-r)²+(b-r)²=r². The geometry is now one equation in r.</p></div>
+<div class="card"><h3>Algebra or Desmos?</h3><p>Algebra is often cleaner for sums/products of possible radii; Vieta can avoid solving both roots.</p><h3>Common trap</h3><p>Using distance from the point to the origin instead of point-to-center distance.</p></div>
+<div class="card"><h2>Transfer practice</h2><div class="q"><b>1.</b> A circle tangent to both positive axes passes through (6,8). The possible radii have sum S. Find S.<br>
+        <input id="a1" type="text" autocomplete="off">
+        <button onclick="check(1)">Check</button>
+        <div id="f1" class="feedback"></div></div><div class="q"><b>2.</b> A circle tangent to both positive axes passes through (4,7). The possible radii have product P. Find P.<br>
+        <input id="a2" type="text" autocomplete="off">
+        <button onclick="check(2)">Check</button>
+        <div id="f2" class="feedback"></div></div><div class="q"><b>3.</b> A circle tangent to both positive axes passes through (5,5). Enter the smaller radius as 10-5sqrt(2).<br>
+        <input id="a3" type="text" autocomplete="off">
+        <button onclick="check(3)">Check</button>
+        <div id="f3" class="feedback"></div></div></div>
+<div class="card"><h2>Finish lesson</h2>
+<p>How do you feel now?</p>
+<div class="row"><label class="chip"><input type="radio" name="conf" value="Got it"> Got it</label>
+<label class="chip"><input type="radio" name="conf" value="Still unsure"> Still unsure</label></div><br>
+<button onclick="finish()">Save lesson result</button>
+<div id="saved" class="feedback"></div></div>
+<script>
+const KEY=["28", "65", "10-5sqrt(2)"], LESSON="Targeted Lesson 2 \u2014 Turning Geometry Into Algebra", start=Date.now();
+let attempts=Array(KEY.length).fill(0), correct=Array(KEY.length).fill(false), revisited=false;
+function norm(s){return s.toLowerCase().replace(/\s+/g,'').replace(/√/g,'sqrt')}
+function check(i){attempts[i-1]++; const ok=norm(document.getElementById('a'+i).value)===KEY[i-1];
+correct[i-1]=ok; let f=document.getElementById('f'+i); f.textContent=ok?'Correct — pattern recognized.':'Not yet. Re-read the recognition cue and try again.';f.className='feedback '+(ok?'ok':'no');}
+function reviewWorked(){revisited=true; alert('Recorded. Re-reading is useful data, not a penalty.');}
+function finish(){let c=document.querySelector('input[name=conf]:checked'); if(!c){alert('Choose Got it or Still unsure.');return}
+let result={lesson:LESSON,elapsedSeconds:Math.round((Date.now()-start)/1000),revisitedWorkedExample:revisited,confidence:c.value,
+questions:attempts.map((a,i)=>({q:i+1,attempts:a,finalCorrect:correct[i]})),savedAt:new Date().toISOString()};
+localStorage.setItem('satMathLesson:'+LESSON,JSON.stringify(result));document.getElementById('saved').textContent='Saved on this browser.';document.getElementById('saved').className='feedback ok';}
+</script></main></body></html>
