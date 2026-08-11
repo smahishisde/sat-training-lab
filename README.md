@@ -1,6 +1,6 @@
 # SAT Training Lab
 
-Student-facing SAT practice portal for GitHub Pages.
+Student-facing SAT practice portal test for GitHub Pages.
 
 Deployment
 
